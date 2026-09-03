@@ -21,6 +21,17 @@ $myListings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (!$userData) {
     $userData = ['userBalance' => 0];
 }
+
+$flashError = '';
+$flashSuccess = '';
+if (!empty($_SESSION['flashError'])) {
+    $flashError = $_SESSION['flashError'];
+    unset($_SESSION['flashError']);
+}
+if (!empty($_SESSION['flashSuccess'])) {
+    $flashSuccess = $_SESSION['flashSuccess'];
+    unset($_SESSION['flashSuccess']);
+}
 ?>
 
 <div class="row mb-4"> 
@@ -34,6 +45,7 @@ if (!$userData) {
                 <span class="text-muted d-block text-uppercase small font-weight-bold">Balance</span>
                 <span class="fs-3 fw-bold text-success">R <?= number_format($userData['userBalance'] ?? 0, 2) ?></span>
             </div>
+            <a href="wallet-topup.php" class="btn btn-outline-success">Top Up Wallet</a>
             <a href="connect-createproduct.php" class="btn btn-success">Create New Listing</a>
         </div>
     </div>

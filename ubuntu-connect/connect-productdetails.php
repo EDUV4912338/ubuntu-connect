@@ -27,7 +27,24 @@ if (!$item) {
     include 'includes/footer.php';
     exit;
 }
+
+$flashError = '';
+$flashSuccess = '';
+
+if (!empty($_SESSION['flashError'])) {
+    $flashError = $_SESSION['flashError'];
+    unset($_SESSION['flashError']);
+}
+if (!empty($_SESSION['flashSuccess'])) {
+    $flashSuccess = $_SESSION['flashSuccess'];
+    unset($_SESSION['flashSuccess']);
+}
+
+$isOwnListing = (int)$item['sellerID'] === (int)($_SESSION['userID'] ?? 0);
 ?>
+
+<?php if ($flashError): ?><div class="alert alert-danger"><?= htmlspecialchars($flashError) ?></div><?php endif; ?>
+<?php if ($flashSuccess): ?><div class="alert alert-success"><?= htmlspecialchars($flashSuccess) ?></div><?php endif; ?>
 
 <!--Product Layout-->
 <div class="row mt-4">

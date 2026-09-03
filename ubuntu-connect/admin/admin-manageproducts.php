@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status']))
   
     if (in_array($newStatus, ['active', 'sold', 'suspended'])) 
     {
-        $stmt = $pdo->prepare("UPDATE tblistings SET listingStatus = ? WHERE listingID = ?");
+        $stmt = $pdo->prepare("UPDATE tbllistings SET listingStatus = ? WHERE listingID = ?");
      if ($stmt->execute([$newStatus, $targetPID])) 
         {
             $errorMessage = "<div class='alert alert-success'>Product status was changed to: " . ucfirst($newStatus) . "</div>";
@@ -107,7 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status']))
                                 </form>
                             </td>
                             <td>
-                                <a href="admin-deleteproduct.php?id=<?= $l['listingID'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this listing?');">Remove</a>
+                                <form action="admin-deleteproduct.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this listing?');">
+                                    <input type="hidden" name="id" value="<?= $l['listingID'] ?>">
+                                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                </form>
                             </td>
                         </tr>
                         <?php endforeach; ?>

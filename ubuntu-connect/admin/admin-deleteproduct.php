@@ -24,7 +24,7 @@ if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
     $stmt = $pdo->prepare("DELETE FROM tbllistings WHERE listingID = ?");
     $stmt->execute([$listingID]);
 
-header("Location: " . base_URL . "/admin/admin-dashboard.php");
+header("Location: " . base_URL . "/admin/admin-manageproducts.php");
 
 exit;
 ?>

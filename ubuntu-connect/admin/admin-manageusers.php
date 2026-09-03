@@ -14,6 +14,16 @@ if (!isset($_SESSION['userID']) || $_SESSION['userRole'] !== 'admin')
 }
 $errorMessage = '';
 
+// Pick up a flash message left behind by admin-deleteuser.php, then clear it
+if (!empty($_SESSION['flashError'])) {
+    $errorMessage = "<div class='alert alert-danger'>" . htmlspecialchars($_SESSION['flashError']) . "</div>";
+    unset($_SESSION['flashError']);
+}
+if (!empty($_SESSION['flashSuccess'])) {
+    $errorMessage = "<div class='alert alert-success'>" . htmlspecialchars($_SESSION['flashSuccess']) . "</div>";
+    unset($_SESSION['flashSuccess']);
+}
+
 // Handle Role Update (RBAC)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
 
