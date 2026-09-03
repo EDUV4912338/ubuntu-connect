@@ -8,6 +8,12 @@ $stmt = $pdo->query("SELECT l.*, u.userName FROM tbllistings l
   ORDER BY l.dateCreated DESC");
 
 $allItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$flashError = '';
+if (!empty($_SESSION['flashError'])) {
+    $flashError = $_SESSION['flashError'];
+    unset($_SESSION['flashError']);
+}
 ?>
 
 <!--page header-->
